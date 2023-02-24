@@ -1,6 +1,21 @@
 import { useState } from "react";
 
-function App() {
+let user = {
+  login: true,
+  id: "bm",
+  nickname: "hey",
+};
+
+function Homepage() {
+  return (
+    <div>
+      <h1>홈페이지에 오신 것을 환영합니다.</h1>
+      <button>로그아웃</button>
+    </div>
+  );
+}
+
+function Login() {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
 
@@ -39,6 +54,10 @@ function App() {
       <button type="submit">로그인</button>
     </form>
   );
+}
+
+function App() {
+  return <div>{user.login ? <Homepage /> : <Login />}</div>;
 }
 
 export default App;
