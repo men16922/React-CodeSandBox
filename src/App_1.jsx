@@ -4,20 +4,16 @@ function App() {
 
 function Hello({ name }) {
   if (name) {
-    return <One name={name} />;
+    return (
+      <div>
+        <h1>hello {name}!</h1>
+      </div>
+    );
   }
-  return <Two />;
+  return <NoName />;
 }
 
-function One({ name }) {
-  return (
-    <div>
-      <h1>Hello {name}!</h1>
-    </div>
-  );
-}
-
-function Two() {
+function NoName() {
   return (
     <div>
       <h1>이름을 입력하지 않았습니다.</h1>

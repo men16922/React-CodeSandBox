@@ -1,41 +1,53 @@
-import React from "react";
+import { useState } from "react";
+import One from "./Components/One";
+import Two from "./Components/Two";
+import Three from "./Components/Three";
+
+function ContentsContainer({ listName }) {
+  if (listName === "one") {
+    return <One />;
+  } else if (listName === "two") {
+    return <Two />;
+  } else if (listName === "three") {
+    return <Three />;
+  }
+  return null;
+}
 
 function App() {
-  const productList = {
-    products: [
-      {
-        title: "개발자 무릎 담요",
-        price: 17500,
-        id: 101,
-      },
-      {
-        title: "Hack Your Life 개발자 노트북 파우치",
-        price: 29000,
-        id: 102,
-      },
-      {
-        title: "우당탕탕 라이켓의 실험실 스티커북",
-        price: 29000,
-        id: 103,
-      },
-      {
-        title: "버그를 Java라 버그잡는 개리씨 키링",
-        price: 29000,
-        id: 104,
-      },
-    ],
+  const [listName, setListName] = useState("one");
+  const handleCheckId = (e) => {
+    setListName(e.target.id);
   };
   return (
-    <div>
-      {productList.products.map((el, index) => {
-        return (
-          <div key={el.id}>
-            <h2>{el.title}</h2>
-            <p>{el.price}원</p>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <nav>
+        <ul>
+          <li
+            id="one"
+            style={listName === "one" ? { color: "red" } : { color: "black" }}
+            onClick={handleCheckId}
+          >
+            One
+          </li>
+          <li
+            id="two"
+            style={listName === "two" ? { color: "red" } : { color: "black" }}
+            onClick={handleCheckId}
+          >
+            Two
+          </li>
+          <li
+            id="three"
+            style={listName === "three" ? { color: "red" } : { color: "black" }}
+            onClick={handleCheckId}
+          >
+            Three
+          </li>
+        </ul>
+      </nav>
+      <ContentsContainer listName={listName} />
+    </>
   );
 }
 
