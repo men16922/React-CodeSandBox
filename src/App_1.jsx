@@ -5,12 +5,26 @@ const CardDiv = styled.div`
   border-radius: 10px;
   border: 1px solid #c4c4c4;
   margin-bottom: 20px;
-  width: ${(props) => (props.className === "setting" ? "200px" : "400px")};
+  width: 400px;
 `;
 
 const Card = (props) => {
-  console.log(props);
-  return null;
+  return (
+    <CardDiv className={props.className}>
+      <h3>{props.value}</h3>
+      <hr />
+      <div>{props.children}</div>
+    </CardDiv>
+  );
+};
+
+const SettingCard = () => {
+  return (
+    <>
+      <button>초기화</button>
+      <button>저장하기</button>
+    </>
+  );
 };
 
 const ShareCard = () => {
@@ -31,34 +45,13 @@ const ShareCard = () => {
   );
 };
 
-const SettingCard = () => {
-  return (
-    <>
-      <button>초기화</button>
-      <button>저장하기</button>
-    </>
-  );
-};
-
-const Test = () => {
-  return <p>hello world</p>;
-};
-
-const TestTwo = () => {
-  return <p>hello world2</p>;
-};
-
 function App() {
   return (
     <>
-      <Card cardClassName="setting" title="챌린지 설정">
+      <Card className="setting" value="챌린지 설정">
         <SettingCard />
-        <Test>
-          <TestTwo />
-          <TestTwo />
-        </Test>
       </Card>
-      <Card cardClassName="share" title="서비스 공유하기">
+      <Card className="share" value="서비스 공유하기">
         <ShareCard />
       </Card>
     </>
