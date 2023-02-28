@@ -1,23 +1,23 @@
+import { createGlobalStyle } from "styled-components";
+import Example from "./Components/Example";
+
+const GlobalStyle = createGlobalStyle`
+span {
+  color: red;
+  font-size: 12px;
+}
+`;
+
 function App() {
-  return <Hello name="licat" />;
-}
-
-function Hello({ name }) {
-  if (name) {
-    return (
-      <div>
-        <h1>hello {name}!</h1>
-      </div>
-    );
-  }
-  return <NoName />;
-}
-
-function NoName() {
   return (
-    <div>
-      <h1>이름을 입력하지 않았습니다.</h1>
-    </div>
+    <>
+      <GlobalStyle />
+      <div className="App">
+        <h1>hello world 1</h1>
+        <span>hello world 2 </span>
+        <Example />
+      </div>
+    </>
   );
 }
 

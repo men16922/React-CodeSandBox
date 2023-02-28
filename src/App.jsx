@@ -1,54 +1,21 @@
-import { useState } from "react";
-import One from "./Components/One";
-import Two from "./Components/Two";
-import Three from "./Components/Three";
+import React from "react";
+import styled, { css } from "styled-components";
 
-function ContentsContainer({ listName }) {
-  if (listName === "one") {
-    return <One />;
-  } else if (listName === "two") {
-    return <Two />;
-  } else if (listName === "three") {
-    return <Three />;
-  }
-  return null;
-}
+const One = css`
+  color: red;
+`;
 
-function App() {
-  const [listName, setListName] = useState("one");
-  const handleCheckId = (e) => {
-    setListName(e.target.id);
-  };
-  return (
-    <>
-      <nav>
-        <ul>
-          <li
-            id="one"
-            style={listName === "one" ? { color: "red" } : { color: "black" }}
-            onClick={handleCheckId}
-          >
-            One
-          </li>
-          <li
-            id="two"
-            style={listName === "two" ? { color: "red" } : { color: "black" }}
-            onClick={handleCheckId}
-          >
-            Two
-          </li>
-          <li
-            id="three"
-            style={listName === "three" ? { color: "red" } : { color: "black" }}
-            onClick={handleCheckId}
-          >
-            Three
-          </li>
-        </ul>
-      </nav>
-      <ContentsContainer listName={listName} />
-    </>
-  );
-}
+const Two = css`
+  border: 1px solid black;
+`;
+
+const Three = styled.div`
+  ${One}
+  ${Two}
+`;
+
+const App = () => {
+  return <Three>Lorem ipsum dolor</Three>;
+};
 
 export default App;

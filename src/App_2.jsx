@@ -1,27 +1,38 @@
+import { createGlobalStyle } from "styled-components";
+import Example from "./Components/Example";
+import reset from "styled-reset";
+
+const GlobalStyle = createGlobalStyle`
+${reset}
+    span {
+    color: red;
+    font-size: 12px;
+    }
+    a{
+            text-decoration : none;
+            color : inherit;
+        }
+
+        button{
+            border : none;
+            cursor : pointer;
+        }
+
+        * {
+        box-sizing: border-box;
+        }
+`;
+
 function App() {
-  return <Hello name="licat" />;
-}
-
-function Hello({ name }) {
-  if (name) {
-    return <One name={name} />;
-  }
-  return <Two />;
-}
-
-function One({ name }) {
   return (
-    <div>
-      <h1>Hello {name}!</h1>
-    </div>
-  );
-}
-
-function Two() {
-  return (
-    <div>
-      <h1>이름을 입력하지 않았습니다.</h1>
-    </div>
+    <>
+      <GlobalStyle />
+      <div className="App">
+        <h1>hello world 1</h1>
+        <span>hello world 2 </span>
+        <Example />
+      </div>
+    </>
   );
 }
 
