@@ -1,29 +1,44 @@
-import { useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 
-function Time(props) {
-  const [today, setToday] = useState(new Date());
-  const hour = today.getHours();
-  const min = today.getMinutes();
-  const sec = today.getSeconds();
+const App = () => {
+  const emailInput = useRef(null); // email input에 대한 useRef
+  const pwInput = useRef(null); // pw input에 대한 useRef
 
-  console.log("렌더링이 됩니다..?");
-  useEffect(() => {
-    let time = setInterval(() => {
-      const t = new Date();
-      setToday(t);
-    }, 1000);
-    return () => {
-      clearInterval(time);
-    };
-  }, [today]);
+  const [emailValue, setEmailValue] = useState(""); // email state 값
+  const [pwValue, setPwValue] = useState(""); // pw state 값
+
+  const inputCheck = (e) => {
+    e.preventDefault();
+    if (emailInput.current.value === "") {
+      alert("이메일을 입력해주세요");
+      emailInput.current.focus();
+    }
+
+    if (pwInput.current.value === "") {
+      alert("PW를 입력해주세요");
+      pwInput.current.focus();
+    }
+
+    setEmailValue(emailInput.current.value);
+    setPwValue(pwInput.current.value);
+  };
 
   return (
-    <div>
-      <h1>
-        시간 : {hour}시 {min}분 {sec}초
-      </h1>
-    </div>
-  );
-}
+    <form style={{ display: "flex", flexDirection: "column" }}>
+      <label>
+        이메일 : <input type="email" ref={emailInput} />
+      </label>
+      <label>
+        비밀번호 : <input type="password" ref={pwInput} />
+      </label>
 
-export default Time;
+      <button type="submit" style={{ width: "100px" }} onClick={inputCheck}>
+        회원가입
+      </button>
+      <span>{emailValue}</span>
+      <span>{pwValue}</span>
+    </form>
+  );
+};
+
+export default App;

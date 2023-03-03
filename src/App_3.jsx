@@ -1,42 +1,34 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import React, { useRef, useState } from "react";
 
-function App() {
+const App = () => {
+  const emailInput = useRef(null); // email input에 대한 useRef
+  const pwInput = useRef(null); // pw input에 대한 useRef
+
+  const [emailValue, setEmailValue] = useState(""); // email state 값
+  const [pwValue, setPwValue] = useState(""); // pw state 값
+
+  const inputCheck = (e) => {
+    e.preventDefault();
+    setEmailValue(emailInput.current.value);
+    setPwValue(pwInput.current.value);
+  };
+
   return (
-    <BrowserRouter>
-      <Link to="/"> home </Link>
-      <Link to="/one"> one </Link>
-      <Link to="/two"> two </Link>
-      <Link to="/three"> three </Link>
-      {/* 라우트를 감싸줍니다. */}
-      <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/one" element={<One name="licat" />} />
-        <Route path="/two" element={<Two />} />
-        <Route path="/three" element={<Three />} />
-        <Route path="/blog/:id" element={<Blog />} />
-      </Routes>
-    </BrowserRouter>
+    <form style={{ display: "flex", flexDirection: "column" }}>
+      <label>
+        이메일 : <input type="email" ref={emailInput} />
+      </label>
+      <label>
+        비밀번호 : <input type="password" ref={pwInput} />
+      </label>
+
+      <button type="submit" style={{ width: "100px" }} onClick={inputCheck}>
+        회원가입
+      </button>
+      <span>{emailValue}</span>
+      <span>{pwValue}</span>
+    </form>
   );
-}
-
-function Index() {
-  return <h1>hello world0</h1>;
-}
-
-function One({ name }) {
-  return <h1>{name} world1</h1>;
-}
-
-function Two() {
-  return <h1>hello world2</h1>;
-}
-
-function Three() {
-  return <h1>hello world3</h1>;
-}
-
-function Blog() {
-  return <h1>hello Blog</h1>;
-}
+};
 
 export default App;
