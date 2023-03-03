@@ -1,44 +1,71 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo } from "react";
 
-const App = () => {
-  const emailInput = useRef(null); // email input에 대한 useRef
-  const pwInput = useRef(null); // pw input에 대한 useRef
+export default function App() {
+  const inputName = useRef(null);
+  const inputId = useRef(null);
+  const [userInfo, setUserInfo] = useState([]);
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
 
-  const [emailValue, setEmailValue] = useState(""); // email state 값
-  const [pwValue, setPwValue] = useState(""); // pw state 값
+  function handleInputName(e) {
+    console.log(e);
+    setName(e.target.value);
+    console.log("렌더링 - 1");
+  }
 
-  const inputCheck = (e) => {
+  function handleInputId(e) {
+    console.log(e);
+    setId(e.target.value);
+    console.log("렌더링 - 2");
+  }
+
+  function handleSubmit(e) {
     e.preventDefault();
-    if (emailInput.current.value === "") {
-      alert("이메일을 입력해주세요");
-      emailInput.current.focus();
-    }
+    // userInfo.push({});
+    const newInfo = [...userInfo, { name, id }];
+    inputName.current.value = "";
+    inputId.current.value = "";
+    inputName.current.focus();
+    setUserInfo(newInfo);
+    console.log("렌더링 - 3");
+  }
 
-    if (pwInput.current.value === "") {
-      alert("PW를 입력해주세요");
-      pwInput.current.focus();
-    }
+  // 모든 렌더링에 함께 렌더링되는 이슈가 있습니다.
+  function getNum(user) {
+    console.log("렌더링!");
+    return user.length;
+  }
 
-    setEmailValue(emailInput.current.value);
-    setPwValue(pwInput.current.value);
-  };
+  const n = useMemo(() => getNum(userInfo), [userInfo]);
 
   return (
-    <form style={{ display: "flex", flexDirection: "column" }}>
-      <label>
-        이메일 : <input type="email" ref={emailInput} />
-      </label>
-      <label>
-        비밀번호 : <input type="password" ref={pwInput} />
-      </label>
-
-      <button type="submit" style={{ width: "100px" }} onClick={inputCheck}>
-        회원가입
-      </button>
-      <span>{emailValue}</span>
-      <span>{pwValue}</span>
-    </form>
+    <>
+      <form>
+        <input
+          type="text"
+          placeholder="이름을 입력하세요"
+          onChange={handleInputName}
+          ref={inputName}
+        />
+        <input
+          type="text"
+          placeholder="아이디를 입력하세요"
+          onChange={handleInputId}
+          ref={inputId}
+        />
+        <button type="submit" onClick={handleSubmit}>
+          회원 명부 작성
+        </button>
+      </form>
+      <ul>
+        {userInfo.map((value, index) => (
+          <li key={index}>
+            <h3>이름 : {value.name}</h3>
+            <strong>아이디 : {value.id}</strong>
+          </li>
+        ))}
+      </ul>
+      <span>{n}</span>
+    </>
   );
-};
-
-export default App;
+}
