@@ -1,67 +1,66 @@
-import styled from "styled-components";
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
-const CardDiv = styled.div`
-  padding: 20px;
-  border-radius: 10px;
-  border: 1px solid #c4c4c4;
-  margin-bottom: 20px;
-  width: ${(props) => (props.className === "setting" ? "200px" : "400px")};
-`;
+const Index = () => <h1>나 index야!</h1>;
+const One = () => <h1>나 One야!</h1>;
+const Two = () => <h1>나 Two야!</h1>;
+const Three = () => <h1>나 Three야!</h1>;
+const BlogDetail = () => {
+  const { id } = useParams();
+  const [items, setItems] = useState([]);
 
-const Card = (props) => {
-  console.log(props);
-  return null;
-};
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(`http://test.api.weniv.co.kr/mall/${id}`);
+      const result = await res.json();
+      setItems(result);
+    };
+    getData();
+  }, [items]);
 
-const ShareCard = () => {
   return (
-    <>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque ut
-        eveniet, laudantium, deleniti autem sequi molestias magni quia, aliquam
-        et praesentium nostrum dolores culpa cupiditate unde doloremque labore
-        beatae accusamus.
-      </p>
-      <div>
-        <button>이미지 저장</button>
-        <button>트위터</button>
-        <button>페이스북</button>
-      </div>
-    </>
+    <div>
+      <h1>나 BloeDetails야!</h1>
+      <p>{id} 블로그 내용</p>
+      <p>{items.productName}</p>
+    </div>
   );
-};
-
-const SettingCard = () => {
-  return (
-    <>
-      <button>초기화</button>
-      <button>저장하기</button>
-    </>
-  );
-};
-
-const Test = () => {
-  return <p>hello world</p>;
-};
-
-const TestTwo = () => {
-  return <p>hello world2</p>;
 };
 
 function App() {
   return (
-    <>
-      <Card cardClassName="setting" title="챌린지 설정">
-        <SettingCard />
-        <Test>
-          <TestTwo />
-          <TestTwo />
-        </Test>
-      </Card>
-      <Card cardClassName="share" title="서비스 공유하기">
-        <ShareCard />
-      </Card>
-    </>
+    <BrowserRouter>
+      <Link to="/"> home </Link>
+      <br />
+      <Link to="/one"> one </Link>
+      <br />
+      <Link to="/two"> two </Link>
+      <br />
+      <Link to="/three"> three </Link>
+      <br />
+      <Link to="/blog/1"> 1번 게시물 </Link>
+      <br />
+      <Link to="/blog/2"> 2번 게시물 </Link>
+      <br />
+      <Link to="/blog/3"> 3번 게시물 </Link>
+      <br />
+      <Link to="/blog/4"> 4번 게시물 </Link>
+      <br />
+      {/* 라우트를 감싸줍니다. */}
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/one" element={<One name="licat" />} />
+        <Route path="/two" element={<Two />} />
+        <Route path="/three" element={<Three />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
