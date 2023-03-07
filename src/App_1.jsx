@@ -1,28 +1,54 @@
-import { useState } from "react";
+// const App = () => {
+//   return (
+//     <HelloLicat value={{ name: "gary", id: "garyIsFree" }} />
+//   );
+// };
 
-function 부하() {
-  let s = 0;
-  for (let i = 0; i < 1000000000; i++) {
-    s += i;
-  }
-  return s;
-}
+// const HelloLicat = (props) => {
+//   console.log(props)
+//   return (
+//     <div>
+//       <h2>{props.value.id}</h2>
+//       <strong>{props.value.name}</strong>
+//       <HelloLicatTwo value={{name:props.value.name, id: props.value.id}}/>
+//     </div>
+//   );
+// };
 
-function App() {
-  const [count, setCount] = useState(0);
-  let result = 부하();
+// const HelloLicatTwo = (props) => {
+//   return (
+//     <div>
+//       <h2>Two : {props.value.id}</h2>
+//       <strong>Two : {props.value.name}</strong>
+//     </div>
+//   );
+// };
 
-  const handleCountUp = (e) => {
-    setCount(count + 1);
-    console.log(count);
-  };
+// export default App;
 
+const App = () => {
+  return (
+    <HelloLicat value={{ name: "gary", id: "garyIsFree" }} />
+  );
+};
+
+const HelloLicat = ({value:{name, id}}) => {
   return (
     <div>
-      <h1>계산 결과 : {result}</h1>
-      <div>{count}</div>
-      <button onClick={handleCountUp}>UP!</button>
+      <h2>{id}</h2>
+      <strong>{name}</strong>
+      <HelloLicatTwo value={{name, id}}/>
     </div>
   );
-}
+};
+
+const HelloLicatTwo = ({value:{name, id}}) => {
+  return (
+    <div>
+      <h2>Two : {id}</h2>
+      <strong>Two : {name}</strong>
+    </div>
+  );
+};
+
 export default App;

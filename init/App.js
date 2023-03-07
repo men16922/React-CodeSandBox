@@ -1,9 +1,40 @@
-function App() {
+import React, { createContext } from "react";
+
+const UserInfo = createContext({ name: "gary", id: "garyIsFree" });
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>test2</h1>
-    </div>
+    <UserInfo.Provider value={{ name: "Licat", id: "ImLion" }}>
+      <HelloLicat />
+    </UserInfo.Provider>
   );
-}
+};
+
+const HelloLicat = () => {
+  return (
+    <UserInfo.Consumer>
+      {(value) => (
+        <>
+          <h2>{value.name}</h2>
+          <strong>{value.id}</strong>
+          <HelloLicatTwo />
+        </>
+      )}
+    </UserInfo.Consumer>
+  );
+};
+
+const HelloLicatTwo = () => {
+  return (
+    <UserInfo.Consumer>
+      {(value) => (
+        <div>
+          <h2>{value.name}</h2>
+          <strong>{value.id}</strong>
+        </div>
+      )}
+    </UserInfo.Consumer>
+  );
+};
 
 export default App;
