@@ -1,21 +1,69 @@
-import React, { useEffect, useState } from "react";
-
-function getName() {
-  console.log("사실은 겁나 오래기다리는중...");
-  return "개리";
-}
+import React, { useEffect, useLayoutEffect, useState } from "react";
 
 function App() {
-  const [name, setName] = useState(getName());
   const [num, setNum] = useState(0);
-  return (
-    <>
-      <div>
-        안녕하세요 {name}! 현재 숫자는{num}입니다
-      </div>
-      <button onClick={() => setNum((prevNum) => prevNum + 1)}>{num}</button>
-    </>
-  );
+
+  const handleonClick = () => {
+    setNum(num + 1);
+  };
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect 1");
+    return () => {
+      console.log("useLayoutEffect return_1");
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect 2");
+    return () => {
+      console.log("useLayoutEffect return_2");
+    };
+  });
+
+  useLayoutEffect(() => {
+    console.log("useLayoutEffect 3");
+    return () => {
+      console.log("useLayoutEffect return_3");
+    };
+  }, [num]);
+
+  useEffect(() => {
+    console.log("useEffect 1");
+    return () => {
+      console.log("useEffect return_1");
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("useEffect 2");
+    return () => {
+      console.log("useEffect return_2");
+    };
+  });
+
+  useEffect(() => {
+    console.log("useEffect 3");
+    return () => {
+      console.log("useEffect return_3");
+    };
+  }, [num]);
+
+  return <button onClick={handleonClick}>{num}</button>;
 }
 
-export default App;
+const Wrap = () => {
+  const [isVisible, setIsVisible] = useState(true);
+  const handleClick = () => setIsVisible(!isVisible);
+  return (
+    <>
+      <button onClick={handleClick}>
+        {isVisible ? "언마운트시키기" : "마운트시키기"}
+      </button>
+      <br></br>
+      {isVisible && <App />}
+    </>
+  );
+};
+
+export default Wrap;
