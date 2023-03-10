@@ -1,21 +1,21 @@
-import React, { createContext, useContext } from "react";
-import HelloLicatTwo from "./HelloLicatTwo";
+import React, { useEffect, useState } from "react";
 
-const UserInfo = createContext({ name: "gary", id: "garyIsFree" });
+function getName() {
+  console.log("사실은 겁나 오래기다리는중...");
+  return "개리";
+}
 
-const App = () => {
-  return <HelloLicat />;
-};
-
-const HelloLicat = () => {
-  const { name, id } = useContext(UserInfo);
+function App() {
+  const [name, setName] = useState(getName());
+  const [num, setNum] = useState(0);
   return (
     <>
-      <h2>{id}</h2>
-      <strong>{name}</strong>
-      <HelloLicatTwo />
+      <div>
+        안녕하세요 {name}! 현재 숫자는{num}입니다
+      </div>
+      <button onClick={() => setNum((prevNum) => prevNum + 1)}>{num}</button>
     </>
   );
-};
+}
 
 export default App;
